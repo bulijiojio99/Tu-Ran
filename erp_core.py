@@ -10,6 +10,10 @@ from typing import Optional, List, Dict, Any
 import os
 import json
 import logging
+from dotenv import load_dotenv
+
+# 加载 .env 环境变量 (用于本地连接 Supabase)
+load_dotenv()
 
 # 尝试导入 psycopg2 用于 PostgreSQL
 try:
@@ -168,7 +172,9 @@ class ERPDatabase:
         
         # 检查库存是否为空
         cursor.execute(self._fix_sql("SELECT COUNT(*) FROM inventory"))
-        if cursor.fetchone()[0] == 0:
+        row = cursor.fetchone()
+        count = row[0] if isinstance(row, (tuple, list)) else list(row.values())[0]
+        if count == 0:
             default_items = [
                 ("奶油芝士", "Ingredient", 50, 20, "块"),
                 ("鸡蛋", "Ingredient", 100, 30, "个"),
@@ -187,7 +193,9 @@ class ERPDatabase:
         
         # 检查网站设置是否存在
         cursor.execute(self._fix_sql("SELECT COUNT(*) FROM website_settings"))
-        if cursor.fetchone()[0] == 0:
+        row = cursor.fetchone()
+        count = row[0] if isinstance(row, (tuple, list)) else list(row.values())[0]
+        if count == 0:
             default_settings = {
                 'shop_name': '柠檬甜品店',
                 'shop_icon': '🍋',

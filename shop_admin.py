@@ -564,7 +564,16 @@ if page == "🎨 网站编辑器":
             publish_data = st.session_state.website_data.copy()
             publish_data['products'] = db.get_all_products()
             if publish_website(publish_data, INDEX_PATH):
-                st.success("✅ 保存成功！")
+                # 自动推送代码到 GitHub
+                try:
+                    import subprocess
+                    subprocess.run(["git", "add", "."], check=True)
+                    subprocess.run(["git", "commit", "-m", "Auto-update from Shop Admin"], check=False) # 允许空提交
+                    subprocess.run(["git", "push"], check=True)
+                    st.success("✅ 保存并发布成功！(云端同步中...)")
+                except Exception as e:
+                    st.warning(f"✅ 保存成功，但云端同步失败: {e}")
+                
                 st.balloons()
     
     with col_preview:

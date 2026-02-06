@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu&Ran - 日常の幸せベイキング</title>
+    <title>柠檬甜品店 - 日常の幸せベイキング</title>
     <meta name="description" content="大阪のバスクチーズケーキ専門店">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com;">
     <script>
@@ -28,22 +28,22 @@
                 extend: {
                     colors: {
                         brand: {
-                            DEFAULT: '#066903',
-                            light: '#06690315',
-                            dark: '#066903dd',
+                            DEFAULT: '#096235',
+                            light: '#09623515',
+                            dark: '#096235dd',
                         }
                     },
                     fontFamily: {
-                        sans: ['可受体 (Kiwi Maru)', 'Noto Sans JP', 'sans-serif'],
+                        sans: ['标准宋体 (Noto Serif)', 'Noto Sans JP', 'sans-serif'],
                         serif: ['Noto Serif JP', 'serif'],
-                        display: ['可受体 (Kiwi Maru)', 'Noto Serif JP', 'serif'],
+                        display: ['标准宋体 (Noto Serif)', 'Noto Serif JP', 'serif'],
                     }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Kiwi Maru', serif; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Noto Serif JP', serif; -webkit-font-smoothing: antialiased; }
         
         /* 滚动显现动画 */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -73,14 +73,16 @@
                 
                 <img src="uploads/logo.jpg" alt="Logo" class="w-10 h-10 rounded-full object-cover shadow-sm group-hover:rotate-12 transition duration-500">
                 
-                <span class="font-display font-medium text-xl tracking-widest text-gray-900">Tu&Ran</span>
+                <span class="font-display font-medium text-xl tracking-widest text-gray-900">柠檬甜品店</span>
             </div>
             
             <div class="hidden md:flex items-center gap-10 text-sm tracking-widest font-medium text-gray-500">
+                <a href="#about" class="hover:text-brand transition relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-brand after:transition-all hover:after:w-full">私たちについて</a>
+                <a href="#menu" class="hover:text-brand transition relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-brand after:transition-all hover:after:w-full">メニュー</a>
+                <a href="#contact" class="hover:text-brand transition relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-brand after:transition-all hover:after:w-full">お問い合わせ</a>
                 
                 
-                
-                
+                <a href="#contact" class="bg-gray-900 text-white px-6 py-2.5 rounded-full hover:bg-brand transition btn-hover shadow-lg shadow-gray-200">ご予約</a>
                 
             </div>
             
@@ -99,23 +101,41 @@
             <!-- 文本区域 -->
             <div class="md:col-span-5 relative z-10 space-y-10 reveal active">
                 
+                <div class="inline-flex items-center gap-2 border border-gray-200 bg-white/50 backdrop-blur rounded-full px-4 py-1.5 shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                    <span class="text-xs font-bold tracking-widest uppercase text-gray-500">✨ 每日新鲜烘焙</span>
+                </div>
+                
                 
                 <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-medium leading-[1.1] tracking-tight text-gray-900">
-                    幸せを作るために
+                    日常の幸せベイキング
                 </h1>
                 
                 
                 <p class="text-lg md:text-xl text-gray-500 leading-relaxed font-light max-w-md border-l-2 border-brand/30 pl-6">
-                    一口の甘さから、広がる未来へ。心温まるお菓子と、夢を追う若者を応援する場所。
-
+                    私たちは一つ一つのスイーツに心を込めて作っています。
                 </p>
                 
                 
                 <div class="flex items-center gap-6 pt-4">
                     
+                    <a href="#menu" class="bg-brand text-white px-10 py-4 rounded-full font-medium tracking-wide hover:brightness-110 transition btn-hover shadow-xl shadow-brand/20">
+                        メニューを見る
+                    </a>
+                    
+                    
+                    <a href="#about" class="group flex items-center gap-2 text-gray-500 hover:text-gray-900 px-6 py-4 font-medium transition">
+                        <span>詳しく見る</span>
+                        <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+                    </a>
                     
                 </div>
                 
+                
+                <div class="pt-8 flex items-center gap-4 opacity-80">
+                    <div class="flex text-yellow-400 text-lg">★★★★★</div>
+                    <div class="text-sm font-medium text-gray-400 border-l border-gray-300 pl-4">500+ 好评</div>
+                </div>
                 
             </div>
             
@@ -148,146 +168,74 @@
             <div class="mb-24 flex flex-col md:flex-row justify-between items-end gap-8 reveal">
                 <div class="max-w-2xl">
                     <span class="text-brand font-bold tracking-widest text-sm uppercase mb-4 block">Our Collection</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-medium text-gray-900 leading-tight">定番メニュー</h2>
+                    <h2 class="font-display text-4xl md:text-5xl font-medium text-gray-900 leading-tight">おすすめメニュー</h2>
                 </div>
                 
-                <p class="text-gray-500 text-lg max-w-sm mb-2">日本の実りを、心ゆくまで。北海道産の豊かな乳製品や宇治抹茶、瀬戸内海レモンなど、選び抜いた和の素材で一つひとつ丁寧に焼き上げています。</p>
+                <p class="text-gray-500 text-lg max-w-sm mb-2">厳選素材と職人技で作り上げた自慢の一品</p>
                 
             </div>
             
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
                 
-                
-                <div class="group reveal">
-                    <div class="relative aspect-square overflow-hidden bg-gray-100 rounded-2xl mb-6 img-hover shadow-sm">
-                        
-                        
-                        
-                        
-                        
-                        <div class="w-full h-full flex items-center justify-center text-4xl text-gray-300 bg-gray-50">🍰</div>
-                        
-                    </div>
-                    
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-baseline border-b border-gray-100 pb-2 mb-3">
-                            <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">蛋糕</span>
-                            <span class="font-display text-xl font-medium text-gray-900">600円</span>
-                        </div>
-                        <h3 class="font-display text-2xl font-medium text-gray-900 group-hover:text-brand transition">抹茶バスクチーズケーキ</h3>
-                        
-                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 group-hover:line-clamp-none transition-all">京都・宇治抹茶を贅沢に使用。高温で焼き上げることで、外側は香ばしく、中は抹茶の深みとクリームチーズのコクが溶け合う、濃厚な味わいに仕上げました。</p>
-                        
-                    </div>
-                </div>
-                
-                
-                
-                <div class="group reveal">
-                    <div class="relative aspect-square overflow-hidden bg-gray-100 rounded-2xl mb-6 img-hover shadow-sm">
-                        
-                        
-                        
-                        
-                        
-                        <img src="uploads/product_3.jpg" alt="レモンバスクチーズケーキ" class="w-full h-full" style="object-fit: cover; object-position: center;">
-                        
-                    </div>
-                    
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-baseline border-b border-gray-100 pb-2 mb-3">
-                            <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">蛋糕</span>
-                            <span class="font-display text-xl font-medium text-gray-900">600円</span>
-                        </div>
-                        <h3 class="font-display text-2xl font-medium text-gray-900 group-hover:text-brand transition">レモンバスクチーズケーキ</h3>
-                        
-                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 group-hover:line-clamp-none transition-all">瀬戸内海レモンの爽やかな酸味と香りが弾ける、爽快な一皿。クリームチーズの濃厚さをレモンが引き立て、後味は驚くほど軽やかで上品です。</p>
-                        
-                    </div>
-                </div>
-                
-                
-                
-                <div class="group reveal">
-                    <div class="relative aspect-square overflow-hidden bg-gray-100 rounded-2xl mb-6 img-hover shadow-sm">
-                        
-                        
-                        
-                        
-                        
-                        <div class="w-full h-full flex items-center justify-center text-4xl text-gray-300 bg-gray-50">🍰</div>
-                        
-                    </div>
-                    
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-baseline border-b border-gray-100 pb-2 mb-3">
-                            <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">蛋糕</span>
-                            <span class="font-display text-xl font-medium text-gray-900">300円</span>
-                        </div>
-                        <h3 class="font-display text-2xl font-medium text-gray-900 group-hover:text-brand transition">レモンフィナンシェ</h3>
-                        
-                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 group-hover:line-clamp-none transition-all">店内で丁寧に作り上げた自家製焦がしバターの香ばしいナッツの香りと、瀬戸内海レモンの爽やかな酸味が広がる贅沢なフィナンシェです。</p>
-                        
-                    </div>
-                </div>
-                
-                
-                
-                <div class="group reveal">
-                    <div class="relative aspect-square overflow-hidden bg-gray-100 rounded-2xl mb-6 img-hover shadow-sm">
-                        
-                        
-                        
-                        
-                        
-                        <img src="uploads/product_6.jpg" alt="カフェラテ" class="w-full h-full" style="object-fit: cover; object-position: bottom;">
-                        
-                    </div>
-                    
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-baseline border-b border-gray-100 pb-2 mb-3">
-                            <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">饮品</span>
-                            <span class="font-display text-xl font-medium text-gray-900">400円</span>
-                        </div>
-                        <h3 class="font-display text-2xl font-medium text-gray-900 group-hover:text-brand transition">カフェラテ</h3>
-                        
-                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 group-hover:line-clamp-none transition-all">美しい層を成す、香り高いホットカフェラテ。きめ細やかな濃厚ふわふわミルクと、揺らすたびに変化する豊かな味わいをお楽しみください。</p>
-                        
-                    </div>
-                </div>
-                
-                
-                
-                <div class="group reveal">
-                    <div class="relative aspect-square overflow-hidden bg-gray-100 rounded-2xl mb-6 img-hover shadow-sm">
-                        
-                        
-                        
-                        
-                        
-                        <img src="uploads/product_7.jpg" alt="エッグタルト" class="w-full h-full" style="object-fit: cover; object-position: center;">
-                        
-                    </div>
-                    
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-baseline border-b border-gray-100 pb-2 mb-3">
-                            <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">甜点</span>
-                            <span class="font-display text-xl font-medium text-gray-900">350円</span>
-                        </div>
-                        <h3 class="font-display text-2xl font-medium text-gray-900 group-hover:text-brand transition">エッグタルト</h3>
-                        
-                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 group-hover:line-clamp-none transition-all">サクサクのパイ生地に、とろける濃厚なカスタードがたっぷり詰まったスイーツです。</p>
-                        
-                    </div>
-                </div>
-                
-                
             </div>
         </div>
     </section>
     
     
+    
+    <!-- 关于我们 (叙事布局) -->
+    <section id="about" class="py-32 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-20 items-center">
+            
+            <!-- 图片拼接 -->
+            <div class="relative h-[600px] reveal">
+                <div class="absolute top-0 right-0 w-2/3 h-2/3 overflow-hidden rounded-t-[10rem] rounded-b-lg img-hover z-10">
+                    <div class="w-full h-full bg-brand-light"></div>
+                </div>
+                <div class="absolute bottom-0 left-0 w-3/5 h-3/5 overflow-hidden rounded-b-[8rem] rounded-t-lg img-hover z-20 border-4 border-white shadow-2xl">
+                    <div class="w-full h-full bg-gray-200"></div>
+                </div>
+                <!-- 装饰文字 -->
+                <div class="absolute top-1/2 left-10 -translate-y-1/2 font-display text-9xl text-gray-50 opacity-50 -z-0 rotate-90 origin-top-left pointer-events-none">
+                    STORY
+                </div>
+            </div>
+            
+            <div class="space-y-12 reveal delay-200">
+                <div>
+                    <span class="text-brand font-bold tracking-widest text-sm uppercase mb-4 block">About Us</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-medium text-gray-900 leading-tight mb-8">私たちの想い</h2>
+                    
+                    <div class="prose prose-lg text-gray-500 leading-loose space-y-6">
+                        <p>当店の店長は日本で暮らす中国人です。</p>
+                        <p>100%高品質の輸入クリームチーズのみを使用。</p>
+                    </div>
+                </div>
+                
+                
+                <div class="grid grid-cols-3 gap-8 pt-8 border-t border-gray-100">
+                    <div>
+                        <div class="font-display text-3xl font-bold text-gray-900">5+</div>
+                        <div class="text-xs tracking-widest uppercase text-gray-400 mt-1">年专业经验</div>
+                    </div>
+                    
+                    <div>
+                        <div class="font-display text-3xl font-bold text-gray-900">10K+</div>
+                        <div class="text-xs tracking-widest uppercase text-gray-400 mt-1">满意顾客</div>
+                    </div>
+                    
+                    
+                    <div>
+                        <div class="font-display text-3xl font-bold text-gray-900">15+</div>
+                        <div class="text-xs tracking-widest uppercase text-gray-400 mt-1">产品种类</div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </section>
     
     
     
@@ -297,8 +245,8 @@
         <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
         
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10 reveal">
-            <h2 class="font-display text-3xl md:text-4xl font-medium mb-6">いつでもお気軽にお立ち寄りください</h2>
-            <p class="text-gray-400 text-lg mb-16">私たちの菓子と経営理念を通じて、皆様にさらなる幸福をお届けできることを願っております。</p>
+            <h2 class="font-display text-3xl md:text-4xl font-medium mb-6">ご来店お待ちしております</h2>
+            <p class="text-gray-400 text-lg mb-16">皆様との出会いを</p>
             
             <div class="grid md:grid-cols-3 gap-x-12 gap-y-12 border-t border-gray-800 pt-16">
                 
@@ -306,8 +254,8 @@
                     <div class="w-16 h-16 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-6 group-hover:bg-brand transition duration-500">
                         📍
                     </div>
-                    <h4 class="font-bold tracking-widest text-sm text-gray-500 mb-2 uppercase">場所</h4>
-                    <p class="text-gray-300 font-light">大阪市北区本庄西二丁目8ー19、明豊ビル102</p>
+                    <h4 class="font-bold tracking-widest text-sm text-gray-500 mb-2 uppercase">店舗住所</h4>
+                    <p class="text-gray-300 font-light">大阪市中央区心斋桥1-2-3</p>
                 </div>
                 
                 
@@ -317,7 +265,7 @@
                         🕒
                     </div>
                     <h4 class="font-bold tracking-widest text-sm text-gray-500 mb-2 uppercase">営業時間</h4>
-                    <p class="text-gray-300 font-light whitespace-pre-line">13:00-20:00</p>
+                    <p class="text-gray-300 font-light whitespace-pre-line">周一至周六 10:00-20:00</p>
                 </div>
                 
                 
@@ -326,20 +274,20 @@
                     <div class="w-16 h-16 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-6 group-hover:bg-brand transition duration-500">
                         ☎️
                     </div>
-                    <h4 class="font-bold tracking-widest text-sm text-gray-500 mb-2 uppercase">電話</h4>
-                    <p class="text-gray-300 font-light">070-9176-9186</p>
+                    <h4 class="font-bold tracking-widest text-sm text-gray-500 mb-2 uppercase">お問い合わせ</h4>
+                    <p class="text-gray-300 font-light">06-1234-5678</p>
                 </div>
                 
             </div>
             
             <div class="mt-24 flex flex-col md:flex-row justify-between items-center gap-8 pt-8 border-t border-gray-800 text-sm text-gray-500">
                 <div class="flex items-center gap-3">
-                    <span class="font-display font-bold text-white text-lg tracking-widest">Tu&Ran</span>
-                    <span>| 最終的な解釈権は、Tu&Ran合同会社に帰属します</span>
+                    <span class="font-display font-bold text-white text-lg tracking-widest">柠檬甜品店</span>
+                    <span>| 保留所有权利. 用心烘焙 ❤️</span>
                 </div>
                 
                 <div class="flex gap-4">
-                    <a href="turan.osaka" target="_blank" class="hover:text-white transition">Instagram</a>
+                    <a href="https://www.instagram.com/turan.osaka/" target="_blank" class="hover:text-white transition">Instagram</a>
                     
                 </div>
             </div>
