@@ -389,3 +389,138 @@ def publish_website(data: Dict, output_path: str = "index.html") -> bool:
     except Exception as e:
         print(f"发布失败: {e}")
         return False
+
+
+# ==================== 关于我们页面模板 ====================
+ABOUT_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }} - {{ shop_name }}</title>
+    <meta name="description" content="{{ page_description }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '{{ brand_color }}',
+                            light: '{{ brand_color }}15',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: {{ font_css }}; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="bg-[#fcfaf8] text-gray-800">
+    
+    <!-- 导航 -->
+    <nav class="fixed w-full z-50 backdrop-blur-md bg-white/80 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                {% if logo_image %}
+                <img src="{{ logo_image }}" alt="Logo" class="w-10 h-10 rounded-full object-cover">
+                {% endif %}
+                <span class="font-medium text-xl tracking-wider">{{ shop_name }}</span>
+            </a>
+            <a href="index.html" class="text-gray-500 hover:text-brand transition">← ホームに戻る</a>
+        </div>
+    </nav>
+    
+    <!-- Hero -->
+    <section class="pt-32 pb-16 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-serif font-medium mb-6">{{ page_title }}</h1>
+            <p class="text-lg text-gray-600 leading-relaxed">{{ page_subtitle }}</p>
+        </div>
+    </section>
+    
+    <!-- 主要内容区块 -->
+    {% for section in sections %}
+    <section class="py-16 px-6 reveal {% if loop.index is odd %}bg-white{% endif %}">
+        <div class="max-w-5xl mx-auto">
+            {% if section.image %}
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="{% if loop.index is even %}order-2{% endif %}">
+                    <img src="{{ section.image }}" alt="{{ section.title }}" class="rounded-2xl shadow-lg w-full h-80 object-cover">
+                </div>
+                <div>
+                    <h2 class="text-2xl font-serif font-medium mb-4 text-brand">{{ section.title }}</h2>
+                    <div class="text-gray-600 leading-relaxed whitespace-pre-line">{{ section.content }}</div>
+                </div>
+            </div>
+            {% else %}
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-2xl font-serif font-medium mb-6 text-center text-brand">{{ section.title }}</h2>
+                <div class="text-gray-600 leading-relaxed whitespace-pre-line text-center">{{ section.content }}</div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+    {% endfor %}
+    
+    <!-- 页脚 -->
+    <footer class="py-12 bg-gray-900 text-white text-center">
+        <p class="text-gray-400">© {{ shop_name }} - All rights reserved</p>
+        <a href="index.html" class="text-brand mt-4 inline-block hover:underline">ホームに戻る</a>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+            
+            function revealOnScroll() {
+                reveals.forEach(el => {
+                    const top = el.getBoundingClientRect().top;
+                    if (top < windowHeight - 100) el.classList.add('active');
+                });
+            }
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>
+"""
+
+
+def render_about_page(data: Dict) -> str:
+    """渲染关于我们页面"""
+    defaults = {
+        'shop_name': 'Tu&Ran',
+        'page_title': '私たちについて',
+        'page_subtitle': '',
+        'page_description': '',
+        'brand_color': '#D4A574',
+        'font_css': "'Noto Sans JP', sans-serif",
+        'sections': [],
+        'logo_image': None,
+    }
+    merged = {**defaults, **data}
+    template = Template(ABOUT_TEMPLATE)
+    return template.render(**merged)
+
+
+def publish_about_page(data: Dict, output_path: str = "about.html") -> bool:
+    """发布关于我们页面"""
+    try:
+        html = render_about_page(data)
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(html)
+        return True
+    except Exception as e:
+        print(f"发布关于页面失败: {e}")
+        return False
+

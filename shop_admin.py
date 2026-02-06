@@ -222,7 +222,7 @@ INDEX_PATH = os.path.join(WEBSITE_DIR, "index.html")
 # ==================== 侧边栏 ====================
 st.sidebar.title("🍰 Tu&Ran 管理")
 st.sidebar.markdown("---")
-page = st.sidebar.radio("导航", ["🎨 网站编辑器", "🏪 店铺运营"], label_visibility="collapsed")
+page = st.sidebar.radio("导航", ["🎨 网站编辑器", "📖 关于页面", "🏪 店铺运营"], label_visibility="collapsed")
 st.sidebar.markdown("---")
 st.sidebar.caption(f"📅 {datetime.now().strftime('%Y-%m-%d %H:%M')}")
 if os.path.exists(INDEX_PATH):
@@ -607,6 +607,125 @@ if page == "🎨 网站编辑器":
     auto_save()
     st.sidebar.markdown("---")
     st.sidebar.success(f"💾 自动保存: {st.session_state.last_saved}")
+
+# ==================== 关于页面编辑器 ====================
+elif page == "📖 关于页面":
+    st.title("📖 关于页面编辑器")
+    st.caption("编辑公司文化、店铺理念等内容，将生成一个独立的 about.html 页面")
+    
+    # 初始化 about_data
+    if 'about_data' not in st.session_state:
+        saved_about = db.get_website_settings().get('about_page_data', {})
+        st.session_state.about_data = saved_about if saved_about else {
+            'page_title': '私たちについて',
+            'page_subtitle': 'Tu&Ranの物語',
+            'page_description': '私たちの理念とこだわりをご紹介します',
+            'sections': []
+        }
+    
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        st.subheader("📝 基本设置")
+        st.session_state.about_data['page_title'] = st.text_input(
+            "页面标题", st.session_state.about_data.get('page_title', '私たちについて'))
+        st.session_state.about_data['page_subtitle'] = st.text_input(
+            "副标题", st.session_state.about_data.get('page_subtitle', ''))
+        st.session_state.about_data['page_description'] = st.text_area(
+            "页面描述 (SEO)", st.session_state.about_data.get('page_description', ''), height=80)
+        
+        st.markdown("---")
+        st.subheader("📑 内容区块")
+        st.caption("每个区块会在页面上显示为独立的章节")
+        
+        sections = st.session_state.about_data.get('sections', [])
+        
+        # 显示现有区块
+        for i, section in enumerate(sections):
+            with st.expander(f"区块 {i+1}: {section.get('title', '未命名')}", expanded=False):
+                sections[i]['title'] = st.text_input(f"标题##sec{i}", section.get('title', ''), key=f"sec_title_{i}")
+                sections[i]['content'] = st.text_area(f"内容##sec{i}", section.get('content', ''), height=150, key=f"sec_content_{i}")
+                
+                # 区块图片上传
+                uploaded = st.file_uploader(f"配图 (可选)##sec{i}", type=['jpg', 'jpeg', 'png'], key=f"sec_img_{i}")
+                if uploaded:
+                    import base64
+                    from PIL import Image
+                    img = Image.open(uploaded)
+                    if img.mode in ('RGBA', 'P'):
+                        img = img.convert('RGB')
+                    img.thumbnail((800, 800), Image.Resampling.LANCZOS)
+                    save_path = os.path.join(UPLOADS_DIR, f"about_section_{i}.jpg")
+                    img.save(save_path, 'JPEG', quality=85)
+                    sections[i]['image'] = f"uploads/about_section_{i}.jpg"
+                    st.success("✅ 图片已上传")
+                
+                if sections[i].get('image'):
+                    st.image(sections[i]['image'], width=200)
+                
+                if st.button(f"🗑️ 删除此区块", key=f"del_sec_{i}"):
+                    sections.pop(i)
+                    st.rerun()
+        
+        # 添加新区块
+        if st.button("➕ 添加新区块"):
+            sections.append({'title': '', 'content': '', 'image': None})
+            st.rerun()
+        
+        st.session_state.about_data['sections'] = sections
+        
+        st.markdown("---")
+        if st.button("💾 保存并发布关于页面", type="primary", use_container_width=True):
+            from cms_core import publish_about_page
+            
+            # 准备数据
+            about_publish_data = st.session_state.about_data.copy()
+            about_publish_data['shop_name'] = st.session_state.website_data.get('shop_name', 'Tu&Ran')
+            about_publish_data['brand_color'] = st.session_state.website_data.get('brand_color', '#D4A574')
+            about_publish_data['font_css'] = st.session_state.website_data.get('font_css', "'Noto Sans JP', sans-serif")
+            about_publish_data['logo_image'] = get_image_path('logo')
+            
+            # 保存到数据库
+            website_settings = st.session_state.website_data.copy()
+            website_settings['about_page_data'] = st.session_state.about_data
+            db.save_website_settings(website_settings)
+            
+            # 发布 about.html
+            about_path = os.path.join(WEBSITE_DIR, "about.html")
+            if publish_about_page(about_publish_data, about_path):
+                # Git 同步
+                try:
+                    import subprocess
+                    subprocess.run(["git", "add", "."], check=True)
+                    subprocess.run(["git", "commit", "-m", "Update about page"], check=False)
+                    subprocess.run(["git", "push"], check=True)
+                    st.success("✅ 关于页面发布成功！访问: turan.cafe/about.html")
+                except Exception as e:
+                    st.warning(f"✅ 保存成功，但云端同步失败: {e}")
+                st.balloons()
+            else:
+                st.error("❌ 发布失败")
+    
+    with col2:
+        st.subheader("👁️ 预览")
+        if st.session_state.about_data.get('sections'):
+            preview_html = f"""
+            <div style="font-family: 'Noto Sans JP', sans-serif; padding: 20px; background: #fcfaf8; border-radius: 12px;">
+                <h1 style="text-align: center; font-size: 24px; margin-bottom: 10px;">{st.session_state.about_data.get('page_title', '')}</h1>
+                <p style="text-align: center; color: #666;">{st.session_state.about_data.get('page_subtitle', '')}</p>
+                <hr style="margin: 20px 0; border-color: #eee;">
+            """
+            for sec in st.session_state.about_data.get('sections', []):
+                preview_html += f"""
+                <div style="margin: 20px 0; padding: 15px; background: white; border-radius: 8px;">
+                    <h3 style="color: #D4A574; margin-bottom: 10px;">{sec.get('title', '')}</h3>
+                    <p style="color: #555; white-space: pre-line;">{sec.get('content', '')}</p>
+                </div>
+                """
+            preview_html += "</div>"
+            st.markdown(preview_html, unsafe_allow_html=True)
+        else:
+            st.info("添加区块后这里会显示预览")
 
 # ==================== 店铺运营 ====================
 elif page == "🏪 店铺运营":
