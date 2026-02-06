@@ -116,8 +116,10 @@ def image_uploader(key, label):
                 st.rerun()
     uploaded = st.file_uploader(label, type=['jpg', 'jpeg', 'png'], key=f"up_{key}", label_visibility="collapsed")
     if uploaded:
-        save_uploaded_image(uploaded, f"{key}.jpg")
-        st.rerun()
+        result = save_uploaded_image(uploaded, f"{key}.jpg")
+        if result:
+            st.success(f"✅ 图片已上传")
+        # 不再自动刷新，保存时会统一处理
 
 def clear_field(field_key):
     """清空字段"""
