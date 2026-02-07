@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>店長からのメッセージ - Tu&Ran</title>
+    <meta name="description" content="いつも当店をご愛顧いただき、誠にありがとうございます。私たちの物語を少しだけお話しさせてください。
+
+私は日本で暮らす中国人店長です。「夢を持つ若者たちが社会経験を積み、自分を磨ける場所を作りたい。そして、社会にほんの少しの温かさを届けたい。」そんな願いを込めて、この小さなスイーツショップを開きました。
+
+現在、お店を支えてくれているスタッフの多くは、日本で奮闘している留学生たちです。彼らはスイーツ作りが大好きで、何より自分の夢に向かって日々努力しています。日本語はまだ完璧ではなく、コミュニケーションがスムーズにいかないこともあるかもしれません。それでも、私たちは美味しいスイーツを通じて皆様と繋がり、いつの日かお客様と「友人」のような関係になれることを心から願っています。
+
+至らぬ点もあり、ご不便をおかけすることもあるかと思います。しかし、スタッフ一人ひとりが誠心誠意、心を込めておもてなしをし、最高のスイーツをお届けできるよう全力を尽くすことをお約束します。
+
+皆様からの温かい励ましや笑顔は、私たちにとって何よりの原動力であり、最高の教科書です。スタッフ一同、皆様のご来店を心よりお待ちしております。
+
+また、私たちはもっと多くの方の力になりたいと考えています。もし生活や学習の中で困ったことがあれば、私たちの力及ぶ範囲でサポートさせていただきます。世界がより良くなることを願い、皆様の温かな見守りとご支援をいただければ幸いです。">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#066903',
+                            light: '#06690315',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="bg-[#fcfaf8] text-gray-800">
+    
+    <!-- 导航 -->
+    <nav class="fixed w-full z-50 backdrop-blur-md bg-white/80 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                
+                <img src="uploads/logo.jpg" alt="Logo" class="w-10 h-10 rounded-full object-cover">
+                
+                <span class="font-medium text-xl tracking-wider">Tu&Ran</span>
+            </a>
+            <a href="index.html" class="text-gray-500 hover:text-brand transition">← ホームに戻る</a>
+        </div>
+    </nav>
+    
+    <!-- Hero -->
+    <section class="pt-32 pb-16 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-serif font-medium mb-6">店長からのメッセージ</h1>
+            <p class="text-lg text-gray-600 leading-relaxed">Tu&Ranの物語</p>
+        </div>
+    </section>
+    
+    <!-- 主要内容区块 -->
+    
+    <section class="py-16 px-6 reveal bg-white">
+        <div class="max-w-5xl mx-auto">
+            
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-2xl font-serif font-medium mb-6 text-center text-brand"></h2>
+                <div class="text-gray-600 leading-relaxed whitespace-pre-line text-center"></div>
+            </div>
+            
+        </div>
+    </section>
+    
+    <section class="py-16 px-6 reveal ">
+        <div class="max-w-5xl mx-auto">
+            
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-2xl font-serif font-medium mb-6 text-center text-brand"></h2>
+                <div class="text-gray-600 leading-relaxed whitespace-pre-line text-center"></div>
+            </div>
+            
+        </div>
+    </section>
+    
+    
+    <!-- 页脚 -->
+    <footer class="py-12 bg-gray-900 text-white text-center">
+        <p class="text-gray-400">© Tu&Ran - All rights reserved</p>
+        <a href="index.html" class="text-brand mt-4 inline-block hover:underline">ホームに戻る</a>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+            
+            function revealOnScroll() {
+                reveals.forEach(el => {
+                    const top = el.getBoundingClientRect().top;
+                    if (top < windowHeight - 100) el.classList.add('active');
+                });
+            }
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>
