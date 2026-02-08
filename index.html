@@ -125,12 +125,6 @@
                     
                     <img src="uploads/hero.jpg" alt="Hero" class="w-full h-full object-cover">
                     
-                    
-                    <!-- 浮动卡片 -->
-                    <div class="absolute bottom-10 -left-10 md:-left-16 bg-white/90 backdrop-blur p-8 rounded-2xl shadow-lg max-w-xs hidden md:block animate-float">
-                        <p class="font-display text-2xl font-medium text-gray-800">"Simple is the best."</p>
-                        <p class="text-right text-gray-400 text-sm mt-2">— Chef</p>
-                    </div>
                 </div>
                 
                 <!-- 背景装饰 -->
@@ -325,7 +319,7 @@
             <h2 class="font-display text-3xl md:text-4xl font-medium mb-6">いつでもお気軽にお立ち寄りください</h2>
             <p class="text-gray-400 text-lg mb-16">私たちの菓子と経営理念を通じて、皆様にさらなる幸福をお届けできることを願っております。</p>
             
-            <div class="grid md:grid-cols-3 gap-x-12 gap-y-12 border-t border-gray-800 pt-16">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-12 border-t border-gray-800 pt-16">
                 
                 <div class="group">
                     <div class="w-16 h-16 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-6 group-hover:bg-brand transition duration-500">
@@ -355,18 +349,24 @@
                     <p class="text-gray-300 font-light">070-9176-9186</p>
                 </div>
                 
-            </div>
-            
-            <div class="mt-24 flex flex-col md:flex-row justify-between items-center gap-8 pt-8 border-t border-gray-800 text-sm text-gray-500">
-                <div class="flex items-center gap-3">
-                    <span class="font-display font-bold text-white text-lg tracking-widest">Tu&Ran</span>
-                    <span>| 最終的な解釈権は、Tu&Ran合同会社に帰属します</span>
+                
+                
+                <div class="group">
+                    <div class="w-16 h-16 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-6 group-hover:bg-brand transition duration-500">
+                        📱
+                    </div>
+                    <h4 class="font-bold tracking-widest text-sm text-gray-500 mb-2 uppercase">SNS</h4>
+                    <div class="flex flex-col gap-2">
+                        <a href="https://www.instagram.com/turan.osaka?igsh=Zjd5bTZ4aWQ4OHJu&utm_source=qr" target="_blank" class="text-gray-300 hover:text-white transition">Instagram</a>
+                        
+                    </div>
                 </div>
                 
-                <div class="flex gap-4">
-                    <a href="https://www.instagram.com/turan.osaka?igsh=Zjd5bTZ4aWQ4OHJu&utm_source=qr" target="_blank" class="hover:text-white transition">Instagram</a>
-                    
-                </div>
+            </div>
+            
+            <div class="mt-24 flex justify-center items-center gap-4 pt-8 border-t border-gray-800 text-sm text-gray-500">
+                <span class="font-display font-bold text-white text-lg tracking-widest">Tu&Ran</span>
+                <span>| 最終的な解釈権は、Tu&Ran合同会社に帰属します</span>
             </div>
         </div>
     </section>
@@ -393,5 +393,7 @@
             revealOnScroll(); // Trigger once on load
         });
     </script>
+    <!-- Vercel Analytics -->
+    <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
