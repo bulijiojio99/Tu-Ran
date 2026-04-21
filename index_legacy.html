@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu&Ran - 日常の幸せベイキング</title>
+    <meta name="description" content="大阪のバスクチーズケーキ専門店">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com;">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Hachi+Maru+Pop&family=Kiwi+Maru&family=M+PLUS+Rounded+1c:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;600;700&family=Potta+One&family=Yomogi&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brand: { DEFAULT: '#066903', light: '#06690315', dark: '#066903dd' } },
+                    fontFamily: {
+                        sans: ['可受体 (Kiwi Maru)', 'Noto Sans JP', 'sans-serif'],
+                        serif: ['Noto Serif JP', 'serif'],
+                        display: ['可受体 (Kiwi Maru)', 'Noto Serif JP', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Kiwi Maru', serif; -webkit-font-smoothing: antialiased; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .btn-hover { transition: all 0.3s ease; }
+        .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px rgba(0,0,0,0.2); }
+        .img-hover { overflow: hidden; }
+        .img-hover img { transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .img-hover:hover img { transform: scale(1.05); }
+        .decorative-circle { position: absolute; border-radius: 50%; z-index: -1; background: radial-gradient(circle, var(--brand-light) 0%, transparent 70%); }
+    </style>
+</head>
+<body class="bg-[#fcfaf8] text-gray-800 antialiased selection:bg-brand-light selection:text-brand">
+    <nav class="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-white/70 border-b border-white/50" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <img src="uploads/logo.jpg" alt="Logo" class="w-10 h-10 rounded-full object-cover shadow-sm group-hover:rotate-12 transition duration-500">
+                <span class="font-display font-medium text-xl tracking-widest text-gray-900">Tu&Ran</span>
+            </div>
+            <div class="hidden md:flex items-center gap-10 text-sm tracking-widest font-medium text-gray-500">
+                <a href="about.html" class="hover:text-brand transition relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-brand after:transition-all hover:after:w-full">店長からのメッセージ</a>
+            </div>
+            <button class="md:hidden text-2xl text-gray-600">☰</button>
+        </div>
+    </nav>
+    <header class="min-h-screen relative flex items-center justify-center overflow-hidden pt-20">
+        <div class="decorative-circle w-[800px] h-[800px] -top-40 -left-40 opacity-50"></div>
+        <div class="decorative-circle w-[600px] h-[600px] top-1/2 -right-20 bg-orange-50/50"></div>
+        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-5 relative z-10 space-y-10 reveal active">
+                <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-medium leading-[1.1] tracking-tight text-gray-900">幸せを作るために</h1>
+                <p class="text-lg md:text-xl text-gray-500 leading-relaxed font-light max-w-md border-l-2 border-brand/30 pl-6">一口の甘さから、広がる未来へ。心温まるお菓子と、夢を追う若者を応援する場所。</p>
+            </div>
+            <div class="md:col-span-7 relative reveal delay-200">
+                <div class="relative z-10 aspect-[4/5] md:aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl shadow-gray-200 img-hover">
+                    <img src="uploads/hero.jpg" alt="Hero" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -z-10 top-20 -right-20 w-full h-full border border-gray-200 rounded-[2rem] transform translate-x-4 translate-y-4"></div>
+            </div>
+        </div>
+    </header>
+    <section id="menu" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="mb-24 flex flex-col md:flex-row justify-between items-end gap-8 reveal">
+                <div class="max-w-2xl">
+                    <span class="text-brand font-bold tracking-widest text-sm uppercase mb-4 block">Our Collection</span>
+                    <h2 class="font-display text-4xl md:text-5xl font-medium text-gray-900 leading-tight">定番メニュー</h2>
+                </div>
+                <p class="text-gray-500 text-lg max-w-sm mb-2">日本の実りを、心ゆくまで。北海道産の豊かな乳製品や宇治抹茶、瀬戸内海レモンなど、選び抜いた和の素材で一つひとつ丁寧に焼き上げています。</p>
+            </div>
+            <!-- legacy content kept as-is -->
+        </div>
+    </section>
+    <section id="contact" class="py-32 bg-gray-900 text-white relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10 reveal">
+            <h2 class="font-display text-3xl md:text-4xl font-medium mb-6">いつでもお気軽にお立ち寄りください</h2>
+            <p class="text-gray-400 text-lg mb-16">私たちの菓子と経営理念を通じて、皆様にさらなる幸福をお届けできることを願っております。</p>
+            <div class="mt-24 flex justify-center items-center gap-4 pt-8 border-t border-gray-800 text-sm text-gray-500">
+                <span class="font-display font-bold text-white text-lg tracking-widest">Tu&Ran</span>
+                <span>| 最終的な解釈権は、Tu&Ran合同会社に帰属します</span>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+

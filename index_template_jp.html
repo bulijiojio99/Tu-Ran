@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu&Ran - Japanese Minimal Template</title>
+  <meta name="description" content="日系大气简约模板">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; connect-src 'self' https:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com;">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Noto+Serif+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#2f4f3e',
+              light: '#2f4f3e18',
+              dark: '#1f352a'
+            }
+          },
+          fontFamily: {
+            sans: ['Kiwi Maru', 'Noto Serif JP', 'serif'],
+            serif: ['Noto Serif JP', 'serif'],
+            display: ['Noto Serif JP', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Kiwi Maru', serif; -webkit-font-smoothing: antialiased; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .9s cubic-bezier(0.16, 1, 0.3, 1), transform .9s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .img-hover { overflow: hidden; }
+    .img-hover img { transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .img-hover:hover img { transform: scale(1.04); }
+    .grain {
+      pointer-events: none;
+      background-image: radial-gradient(rgba(47,79,62,.06) 0.6px, transparent 0.6px);
+      background-size: 3px 3px;
+      opacity: .4;
+    }
+    .line-illustration {
+      stroke: rgba(47,79,62,.35);
+      stroke-width: 1.4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .line-illustration-soft {
+      stroke: rgba(47,79,62,.2);
+      stroke-width: 1.1;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .img-hover img { transition: none !important; transform: none !important; opacity: 1 !important; }
+    }
+  </style>
+</head>
+<body class="bg-[#f8f7f4] text-gray-900 selection:bg-brand-light selection:text-brand">
+  <div class="fixed inset-0 grain -z-10"></div>
+
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 backdrop-blur-md bg-white/65 border-b border-white/70">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <img id="brandLogo" src="/uploads/logo.jpg" alt="logo" class="w-10 h-10 rounded-full object-cover">
+        <span id="brandName" class="font-display text-xl tracking-[0.18em]">Tu&Ran</span>
+      </a>
+      <div class="hidden md:flex items-center gap-10 text-xs tracking-[0.22em] uppercase text-gray-500">
+        <a href="#collection" class="hover:text-brand transition">Collection</a>
+        <a href="#contact" class="hover:text-brand transition">Contact</a>
+        <a id="aboutLink" href="/about" class="hover:text-brand transition">Message</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="pt-28 min-h-screen flex items-center">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 w-full">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5 reveal active">
+          <div class="mb-6 inline-flex items-center gap-3">
+            <span id="heroBadge" class="text-[10px] px-3 py-1 rounded-full border border-brand/25 text-brand tracking-[0.18em] uppercase">Osaka</span>
+            <span id="heroTagline" class="text-[11px] tracking-[0.18em] uppercase text-gray-400">日常の幸せベイキング</span>
+          </div>
+          <h1 id="heroTitle" class="font-display text-5xl md:text-7xl leading-[1.08] tracking-tight mb-8">幸せを作るために</h1>
+          <p id="heroSubtitle" class="text-base md:text-lg leading-8 text-gray-600 border-l border-brand/35 pl-5 max-w-md">
+            一口の甘さから、広がる未来へ。心温まるお菓子と、夢を追う若者を応援する場所。
+          </p>
+          <div class="pt-4">
+            <svg viewBox="0 0 240 52" class="w-56 h-12" aria-hidden="true">
+              <path class="line-illustration-soft" d="M8 38c18-16 30-18 44-8 10 7 20 7 30 0 14-10 28-8 42 6 10 10 20 11 30 2 12-11 25-9 40 7" />
+              <path class="line-illustration" d="M18 28c10 0 16-8 18-18 2 10 8 18 18 18-10 0-16 8-18 18-2-10-8-18-18-18Z" />
+              <circle cx="196" cy="16" r="4" class="line-illustration-soft"></circle>
+            </svg>
+          </div>
+        </div>
+        <div class="lg:col-span-7 reveal">
+          <div class="relative">
+            <div class="absolute -inset-5 rounded-[2.6rem] border border-brand/12"></div>
+            <div class="relative rounded-[2.6rem] overflow-hidden img-hover shadow-2xl shadow-gray-200/80 bg-gray-100 aspect-[4/5] md:aspect-[16/12]">
+              <img id="heroImage" src="/uploads/hero.jpg" alt="hero" class="w-full h-full object-cover" data-fallback="https://turan.cafe/uploads/hero.jpg">
+            </div>
+            <div class="absolute -bottom-5 -left-5 w-28 h-28 rounded-2xl bg-white/92 border border-brand/10 shadow-sm p-4 hidden md:block">
+              <svg viewBox="0 0 100 100" class="w-full h-full" aria-hidden="true">
+                <path class="line-illustration" d="M50 88V36M50 36c0-14 10-24 24-24M50 36c0-14-10-24-24-24" />
+                <path class="line-illustration-soft" d="M50 52c12 0 18-7 18-18M50 52c-12 0-18-7-18-18" />
+                <path class="line-illustration-soft" d="M50 70c10 0 15-6 15-14M50 70c-10 0-15-6-15-14" />
+                <circle cx="50" cy="90" r="3" class="line-illustration-soft"></circle>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Collection -->
+  <section id="collection" class="py-28">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="mb-16 md:mb-20 reveal">
+        <div id="collectionKicker" class="text-[11px] tracking-[0.24em] uppercase text-brand mb-4">Our Collection</div>
+        <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-end">
+          <h2 id="collectionTitle" class="md:col-span-7 font-display text-4xl md:text-5xl leading-tight">定番メニュー</h2>
+          <p id="collectionIntro" class="md:col-span-5 text-gray-600 leading-8 text-sm md:text-base">
+            日本の実りを、心ゆくまで。北海道産の豊かな乳製品や宇治抹茶、瀬戸内海レモンなど、選び抜いた和の素材で一つひとつ丁寧に焼き上げています。
+          </p>
+        </div>
+        <div class="mt-6">
+          <svg viewBox="0 0 320 28" class="w-44 h-4" aria-hidden="true">
+            <path class="line-illustration-soft" d="M4 14h120M196 14h120" />
+            <path class="line-illustration" d="M160 4l3.6 7.3 8.1 1.2-5.8 5.7 1.4 8.1-7.3-3.8-7.3 3.8 1.4-8.1-5.8-5.7 8.1-1.2L160 4Z" />
+          </svg>
+        </div>
+      </div>
+
+      <div id="collectionGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-28 bg-gray-950 text-white">
+    <div class="max-w-5xl mx-auto px-6 md:px-12 reveal">
+      <div class="text-center mb-14">
+        <h2 id="contactTitle" class="font-display text-3xl md:text-4xl mb-4">いつでもお気軽にお立ち寄りください</h2>
+        <p id="contactSubtitle" class="text-gray-400 max-w-2xl mx-auto leading-8">
+          私たちの菓子と経営理念を通じて、皆様にさらなる幸福をお届けできることを願っております。
+        </p>
+        <div class="mt-6 flex justify-center">
+          <svg viewBox="0 0 180 40" class="w-40 h-8" aria-hidden="true">
+            <path class="line-illustration-soft" style="stroke:rgba(255,255,255,.25)" d="M10 26c8-8 16-10 24-3 7 6 15 6 22 0 9-7 18-6 27 4 7 8 14 9 21 2 8-8 17-7 27 4 6 6 13 6 20 0" />
+            <path class="line-illustration" style="stroke:rgba(255,255,255,.4)" d="M86 8c0 6 4 10 10 10-6 0-10 4-10 10 0-6-4-10-10-10 6 0 10-4 10-10Z" />
+          </svg>
+        </div>
+      </div>
+      <div id="contactGrid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 border-t border-gray-800 pt-12"></div>
+      <div class="mt-14 pt-7 border-t border-gray-800 text-center text-gray-500 text-sm tracking-wide">
+        <span id="footerBrand" class="text-white tracking-[0.18em]">Tu&Ran</span>
+        <span id="footerLegal"> | 最終的な解釈権は、Tu&Ran合同会社に帰属します</span>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const escapeHtml = (text) => String(text ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
+    const withLeadingSlash = (p) => {
+      const s = String(p || '').trim();
+      if (!s) return s;
+      if (/^https?:\/\//i.test(s) || s.startsWith('data:')) return s;
+      return s.startsWith('/') ? s : '/' + s;
+    };
+
+    const resolveImage = (p) => withLeadingSlash(p || '');
+
+    function bindFallback(img) {
+      if (!img) return;
+      const fallback = img.getAttribute('data-fallback');
+      if (!fallback) return;
+      img.addEventListener('error', () => {
+        if (img.dataset.failedOnce === '1') return;
+        img.dataset.failedOnce = '1';
+        img.src = fallback;
+      }, { once: true });
+    }
+
+    function renderItems(items) {
+      const root = document.getElementById('collectionGrid');
+      const safe = Array.isArray(items) ? items : [];
+      root.innerHTML = safe.map((it) => {
+        const name = escapeHtml(it.name);
+        const cat = escapeHtml(it.category);
+        const price = escapeHtml(it.price);
+        const desc = escapeHtml(it.desc);
+        const src = escapeHtml(resolveImage(it.image));
+        const pos = escapeHtml(it.objectPosition || 'center');
+        const fileName = String(it.image || '').split('/').pop() || '';
+        const fb = fileName ? `https://turan.cafe/uploads/${fileName}` : 'https://turan.cafe/uploads/hero.jpg';
+        return `
+        <article class="group reveal">
+          <div class="rounded-2xl overflow-hidden bg-gray-100 shadow-sm mb-5 img-hover aspect-square">
+            <img src="${src}" alt="${name}" class="w-full h-full object-cover" style="object-position:${pos}" data-fallback="${fb}">
+          </div>
+          <div class="flex items-baseline justify-between border-b border-gray-200 pb-2 mb-3">
+            <span class="text-[11px] tracking-[0.18em] uppercase text-gray-400">${cat}</span>
+            <span class="font-display text-xl">${price}</span>
+          </div>
+          <h3 class="font-display text-2xl mb-2 group-hover:text-brand transition">${name}</h3>
+          <p class="text-sm leading-7 text-gray-600">${desc}</p>
+        </article>
+        `;
+      }).join('');
+      root.querySelectorAll('img[data-fallback]').forEach(bindFallback);
+    }
+
+    function renderContacts(cards) {
+      const root = document.getElementById('contactGrid');
+      const safe = Array.isArray(cards) ? cards : [];
+      root.innerHTML = safe.map((c) => {
+        const icon = escapeHtml(c.icon);
+        const label = escapeHtml(c.label);
+        const value = escapeHtml(c.value);
+        const links = Array.isArray(c.links) ? c.links : [];
+        const linksHtml = links.map(l => `<a href="${escapeHtml(l.href)}" target="_blank" class="text-gray-300 hover:text-white transition">${escapeHtml(l.label)}</a>`).join('');
+        return `
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">${icon}</div>
+          <div class="text-[11px] tracking-[0.18em] uppercase text-gray-500 mb-2">${label}</div>
+          ${links.length ? `<div class="flex flex-col gap-2 text-sm">${linksHtml}</div>` : `<div class="text-sm text-gray-300 leading-7 whitespace-pre-line">${value}</div>`}
+        </div>`;
+      }).join('');
+    }
+
+    async function boot() {
+      const reveals = document.querySelectorAll('.reveal');
+      const reveal = () => {
+        const h = window.innerHeight;
+        reveals.forEach(el => {
+          if (el.getBoundingClientRect().top < h - 120) el.classList.add('active');
+        });
+      };
+      window.addEventListener('scroll', reveal, { passive: true });
+      reveal();
+
+      try {
+        const res = await fetch('/content/site.json', { cache: 'no-store' });
+        if (!res.ok) return;
+        const d = await res.json();
+        document.getElementById('brandName').textContent = d.brand?.name || 'Tu&Ran';
+        document.getElementById('footerBrand').textContent = d.brand?.name || 'Tu&Ran';
+        document.getElementById('heroTagline').textContent = d.brand?.tagline || '';
+        if (d.nav?.aboutHref) document.getElementById('aboutLink').href = d.nav.aboutHref;
+        if (d.nav?.aboutLabel) document.getElementById('aboutLink').textContent = d.nav.aboutLabel;
+
+        if (d.hero?.badge) document.getElementById('heroBadge').textContent = d.hero.badge;
+        if (d.hero?.title) document.getElementById('heroTitle').textContent = d.hero.title;
+        if (d.hero?.subtitle) document.getElementById('heroSubtitle').textContent = d.hero.subtitle;
+        if (d.hero?.image) {
+          const heroImg = document.getElementById('heroImage');
+          heroImg.src = resolveImage(d.hero.image);
+          bindFallback(heroImg);
+        }
+
+        if (d.collection?.kicker) document.getElementById('collectionKicker').textContent = d.collection.kicker;
+        if (d.collection?.title) document.getElementById('collectionTitle').textContent = d.collection.title;
+        if (d.collection?.intro) document.getElementById('collectionIntro').textContent = d.collection.intro;
+        renderItems(d.collection?.items || []);
+
+        if (d.contact?.title) document.getElementById('contactTitle').textContent = d.contact.title;
+        if (d.contact?.subtitle) document.getElementById('contactSubtitle').textContent = d.contact.subtitle;
+        renderContacts(d.contact?.cards || []);
+        if (d.contact?.footerLegal) document.getElementById('footerLegal').textContent = ' | ' + d.contact.footerLegal;
+
+        requestAnimationFrame(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('active')));
+      } catch (_) {}
+    }
+    boot();
+  </script>
+</body>
+</html>
+

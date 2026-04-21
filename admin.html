@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu&Ran Admin</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; connect-src 'self' https://api.github.com https://api.vercel.com; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com;">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Hachi+Maru+Pop&family=Kiwi+Maru&family=M+PLUS+Rounded+1c:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;600;700&family=Potta+One&family=Yomogi&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand: { DEFAULT: '#066903', light: '#06690315', dark: '#066903dd' } },
+          fontFamily: {
+            sans: ['可受体 (Kiwi Maru)', 'Noto Sans JP', 'sans-serif'],
+            serif: ['Noto Serif JP', 'serif'],
+            display: ['可受体 (Kiwi Maru)', 'Noto Serif JP', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Kiwi Maru', serif; -webkit-font-smoothing: antialiased; }
+    .btn-hover { transition: all 0.3s ease; }
+    .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -10px rgba(0,0,0,0.2); }
+    .img-hover { overflow: hidden; }
+    .img-hover img { transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+    .img-hover:hover img { transform: scale(1.05); }
+  </style>
+</head>
+<body class="bg-[#fcfaf8] text-gray-800 antialiased selection:bg-brand-light selection:text-brand">
+  <!-- 顶部导航（同风格） -->
+  <nav class="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-white/70 border-b border-white/50">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3 group">
+        <img src="uploads/logo.jpg" alt="Logo" class="w-10 h-10 rounded-full object-cover shadow-sm group-hover:rotate-12 transition duration-500">
+        <span class="font-display font-medium text-xl tracking-widest text-gray-900">Tu&Ran Admin</span>
+      </div>
+      <div class="hidden md:flex items-center gap-6 text-sm tracking-widest font-medium text-gray-500">
+        <a href="/" class="hover:text-brand transition relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-0 after:h-px after:bg-brand after:transition-all hover:after:w-full">返回官网</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-24 pb-20">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        <!-- 左侧编辑区 -->
+        <section class="lg:col-span-5 space-y-6">
+          <div class="bg-white/80 border border-white/60 shadow-sm rounded-2xl p-6">
+            <div class="flex items-center justify-between gap-4 flex-wrap mb-4">
+              <h1 class="font-display text-2xl md:text-3xl font-medium text-gray-900 tracking-tight">主页内容管理</h1>
+              <div class="flex gap-2 flex-wrap">
+                <button id="btnReset" class="btn-hover px-4 py-2 rounded-xl bg-gray-900 text-white text-sm tracking-widest font-medium">恢复默认</button>
+                <button id="btnSave" class="btn-hover px-4 py-2 rounded-xl bg-brand text-white text-sm tracking-widest font-medium">保存</button>
+              </div>
+            </div>
+            <p class="text-gray-500 text-sm leading-relaxed">
+              这是一个“同风格后台界面”，不会改变你官网的设计。它将编辑内容保存到本地浏览器（localStorage），并可导出 JSON，方便你后续同步到线上。
+            </p>
+          </div>
+
+          <div class="bg-white/80 border border-white/60 shadow-sm rounded-2xl p-6 space-y-5">
+            <div class="flex items-center justify-between">
+              <h2 class="font-display text-xl font-medium tracking-tight text-gray-900">Hero</h2>
+              <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">Top</span>
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">标题</label>
+              <input id="heroTitle" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="幸せを作るために" />
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">副标题</label>
+              <textarea id="heroSubtitle" rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="一口の甘さから、広がる未来へ。..."></textarea>
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">Hero 图片路径</label>
+              <input id="heroImage" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="uploads/hero.jpg" />
+            </div>
+          </div>
+
+          <div class="bg-white/80 border border-white/60 shadow-sm rounded-2xl p-6 space-y-5">
+            <div class="flex items-center justify-between">
+              <h2 class="font-display text-xl font-medium tracking-tight text-gray-900">定番メニュー区块</h2>
+              <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">Menu</span>
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">标题</label>
+              <input id="menuTitle" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="定番メニュー" />
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">介绍文</label>
+              <textarea id="menuIntro" rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20"></textarea>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <h3 class="font-display text-lg font-medium text-gray-900">菜单条目</h3>
+              <button id="btnAddItem" class="btn-hover px-3 py-2 rounded-xl bg-white border border-gray-200 text-sm tracking-widest font-medium text-gray-700">+ 添加</button>
+            </div>
+
+            <div id="itemsEditor" class="space-y-3"></div>
+          </div>
+
+          <div class="bg-white/80 border border-white/60 shadow-sm rounded-2xl p-6 space-y-5">
+            <div class="flex items-center justify-between">
+              <h2 class="font-display text-xl font-medium tracking-tight text-gray-900">联系信息</h2>
+              <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">Contact</span>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">地址</label>
+                <input id="contactLocation" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">营业时间</label>
+                <input id="contactHours" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">电话</label>
+                <input id="contactPhone" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">SNS 文本</label>
+                <input id="contactSNS" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="Instagram" />
+              </div>
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">SNS 链接（可选）</label>
+              <input id="contactSNSUrl" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="https://www.instagram.com/..." />
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">页脚声明</label>
+              <input id="footerLegal" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" />
+            </div>
+          </div>
+
+          <div class="bg-white/80 border border-white/60 shadow-sm rounded-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <h2 class="font-display text-xl font-medium tracking-tight text-gray-900">导出</h2>
+              <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">Export</span>
+            </div>
+            <p class="text-gray-500 text-sm leading-relaxed">
+              你可以把内容导出成 JSON。也可以配置 GitHub + Vercel，实现“一键发布”（自动更新仓库的 <code>content/site.json</code> 并触发部署）。
+            </p>
+            <div class="flex gap-2 flex-wrap">
+              <button id="btnExportJson" class="btn-hover px-4 py-2 rounded-xl bg-gray-900 text-white text-sm tracking-widest font-medium">导出 JSON</button>
+              <button id="btnCopyJson" class="btn-hover px-4 py-2 rounded-xl bg-white border border-gray-200 text-sm tracking-widest font-medium text-gray-700">复制 JSON</button>
+            </div>
+            <pre id="jsonPreview" class="hidden mt-3 p-4 rounded-2xl bg-gray-950 text-gray-100 text-xs overflow-auto max-h-64"></pre>
+          </div>
+
+          <div class="bg-white/80 border border-white/60 shadow-sm rounded-2xl p-6 space-y-5">
+            <div class="flex items-center justify-between">
+              <h2 class="font-display text-xl font-medium tracking-tight text-gray-900">一键发布</h2>
+              <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">Publish</span>
+            </div>
+            <p class="text-gray-500 text-sm leading-relaxed">
+              这里会把你的编辑内容生成成官网使用的 <code>content/site.json</code>，提交到 GitHub，然后触发 Vercel Deploy Hook。
+            </p>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">GitHub Owner</label>
+                <input id="ghOwner" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="bulijiojio99">
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">Repo</label>
+                <input id="ghRepo" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="Tu-Ran">
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">Branch</label>
+                <input id="ghBranch" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="main">
+              </div>
+              <div class="space-y-2">
+                <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">Vercel Deploy Hook</label>
+                <input id="vercelHook" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="https://api.vercel.com/v1/integrations/deploy/...">
+              </div>
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-gray-400 tracking-widest uppercase">GitHub Token (Fine-grained PAT)</label>
+              <input id="ghToken" type="password" class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-brand/20" placeholder="ghp_...">
+              <div class="text-xs text-gray-500 leading-relaxed">
+                需要对仓库 <code>bulijiojio99/Tu-Ran</code> 的 “Contents: Read and write” 权限。Token 只保存在你的浏览器 localStorage。
+              </div>
+            </div>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="btnPublish" class="btn-hover px-5 py-3 rounded-2xl bg-brand text-white text-xs tracking-widest font-medium">🚀 一键发布到线上</button>
+              <span id="publishStatus" class="text-xs text-gray-500"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 右侧预览区（同风格卡片预览） -->
+        <section class="lg:col-span-7">
+          <div class="sticky top-24">
+            <div class="bg-white/80 border border-white/60 shadow-sm rounded-2xl overflow-hidden">
+              <div class="px-6 py-5 border-b border-white/60 flex items-center justify-between">
+                <h2 class="font-display text-xl font-medium tracking-tight text-gray-900">实时预览</h2>
+                <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">Preview</span>
+              </div>
+
+              <!-- 预览内容：复用 index.html 的 Tailwind 类，保证不改风格 -->
+              <div class="p-6 md:p-10 space-y-10" id="previewRoot">
+                <!-- injected -->
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'turan_admin_content_v1';
+    const PUBLISH_KEY = 'turan_admin_publish_v1';
+
+    const defaultState = {
+      hero: {
+        title: '幸せを作るために',
+        subtitle: '一口の甘さから、広がる未来へ。心温まるお菓子と、夢を追う若者を応援する場所。',
+        image: 'uploads/hero.jpg'
+      },
+      menu: {
+        title: '定番メニュー',
+        intro: '日本の実りを、心ゆくまで。北海道産の豊かな乳製品や宇治抹茶、瀬戸内海レモンなど、選び抜いた和の素材で一つひとつ丁寧に焼き上げています。',
+        items: [
+          { id: crypto.randomUUID(), category: '蛋糕', price: '600円', name: '抹茶バスクチーズケーキ', desc: '京都・宇治抹茶を贅沢に使用。高温で焼き上げることで、外側は香ばしく、中は抹茶の深みとクリームチーズのコクが溶け合う、濃厚な味わいに仕上げました。', image: 'uploads/product_1.jpg' },
+          { id: crypto.randomUUID(), category: '蛋糕', price: '600円', name: 'レモンバスクチーズケーキ', desc: '瀬戸内海レモンの爽やかな酸味と香りが弾ける、爽快な一皿。クリームチーズの濃厚さをレモンが引き立て、後味は驚くほど軽やかで上品です。', image: 'uploads/product_3.jpg' }
+        ]
+      },
+      contact: {
+        location: '大阪市北区本庄西二丁目8ー19、明豊ビル102',
+        hours: '13:00-20:00',
+        phone: '070-9176-9186',
+        snsText: 'Instagram',
+        snsUrl: 'https://www.instagram.com/turan.osaka?igsh=Zjd5bTZ4aWQ4OHJu&utm_source=qr',
+        footerLegal: 'Tu&Ran | 最終的な解釈権は、Tu&Ran合同会社に帰属します'
+      }
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(defaultState);
+        const parsed = JSON.parse(raw);
+        return deepMerge(structuredClone(defaultState), parsed);
+      } catch (e) {
+        return structuredClone(defaultState);
+      }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function deepMerge(a, b) {
+      if (!b || typeof b !== 'object') return a;
+      for (const k of Object.keys(b)) {
+        if (b[k] && typeof b[k] === 'object' && !Array.isArray(b[k])) {
+          if (!a[k] || typeof a[k] !== 'object') a[k] = {};
+          deepMerge(a[k], b[k]);
+        } else {
+          a[k] = b[k];
+        }
+      }
+      return a;
+    }
+
+    let state = loadState();
+
+    const $ = (id) => document.getElementById(id);
+    const inputs = {
+      heroTitle: $('heroTitle'),
+      heroSubtitle: $('heroSubtitle'),
+      heroImage: $('heroImage'),
+      menuTitle: $('menuTitle'),
+      menuIntro: $('menuIntro'),
+      contactLocation: $('contactLocation'),
+      contactHours: $('contactHours'),
+      contactPhone: $('contactPhone'),
+      contactSNS: $('contactSNS'),
+      contactSNSUrl: $('contactSNSUrl'),
+      footerLegal: $('footerLegal'),
+    };
+
+    const publishInputs = {
+      owner: $('ghOwner'),
+      repo: $('ghRepo'),
+      branch: $('ghBranch'),
+      token: $('ghToken'),
+      hook: $('vercelHook'),
+      status: $('publishStatus'),
+      btn: $('btnPublish')
+    };
+
+    function hydrateForm() {
+      inputs.heroTitle.value = state.hero.title || '';
+      inputs.heroSubtitle.value = state.hero.subtitle || '';
+      inputs.heroImage.value = state.hero.image || '';
+      inputs.menuTitle.value = state.menu.title || '';
+      inputs.menuIntro.value = state.menu.intro || '';
+      inputs.contactLocation.value = state.contact.location || '';
+      inputs.contactHours.value = state.contact.hours || '';
+      inputs.contactPhone.value = state.contact.phone || '';
+      inputs.contactSNS.value = state.contact.snsText || '';
+      inputs.contactSNSUrl.value = state.contact.snsUrl || '';
+      inputs.footerLegal.value = state.contact.footerLegal || '';
+
+      // publish config
+      try {
+        const raw = localStorage.getItem(PUBLISH_KEY);
+        const cfg = raw ? JSON.parse(raw) : {};
+        if (publishInputs.owner) publishInputs.owner.value = cfg.owner || 'bulijiojio99';
+        if (publishInputs.repo) publishInputs.repo.value = cfg.repo || 'Tu-Ran';
+        if (publishInputs.branch) publishInputs.branch.value = cfg.branch || 'main';
+        if (publishInputs.hook) publishInputs.hook.value = cfg.hook || '';
+        if (publishInputs.token) publishInputs.token.value = cfg.token || '';
+      } catch (_) {}
+    }
+
+    function bindForm() {
+      const onAnyChange = () => {
+        state.hero.title = inputs.heroTitle.value;
+        state.hero.subtitle = inputs.heroSubtitle.value;
+        state.hero.image = inputs.heroImage.value;
+        state.menu.title = inputs.menuTitle.value;
+        state.menu.intro = inputs.menuIntro.value;
+        state.contact.location = inputs.contactLocation.value;
+        state.contact.hours = inputs.contactHours.value;
+        state.contact.phone = inputs.contactPhone.value;
+        state.contact.snsText = inputs.contactSNS.value;
+        state.contact.snsUrl = inputs.contactSNSUrl.value;
+        state.contact.footerLegal = inputs.footerLegal.value;
+        renderPreview();
+      };
+      Object.values(inputs).forEach(el => el.addEventListener('input', onAnyChange));
+    }
+
+    function renderItemsEditor() {
+      const root = $('itemsEditor');
+      root.innerHTML = '';
+      state.menu.items.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'rounded-2xl border border-gray-200 bg-white/70 p-4 space-y-3';
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-3">
+            <div class="text-xs font-bold text-gray-400 tracking-widest uppercase">item</div>
+            <button class="btn-hover px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-xs tracking-widest font-medium text-gray-700" data-act="remove">删除</button>
+          </div>
+          <div class="grid md:grid-cols-2 gap-3">
+            <div class="space-y-1.5">
+              <label class="text-[10px] font-bold text-gray-400 tracking-widest uppercase">分类</label>
+              <input class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-brand/20" data-k="category" value="${escapeHtml(item.category || '')}" placeholder="蛋糕/甜点/饮品">
+            </div>
+            <div class="space-y-1.5">
+              <label class="text-[10px] font-bold text-gray-400 tracking-widest uppercase">价格</label>
+              <input class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-brand/20" data-k="price" value="${escapeHtml(item.price || '')}" placeholder="600円">
+            </div>
+            <div class="space-y-1.5 md:col-span-2">
+              <label class="text-[10px] font-bold text-gray-400 tracking-widest uppercase">名称</label>
+              <input class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-brand/20" data-k="name" value="${escapeHtml(item.name || '')}">
+            </div>
+            <div class="space-y-1.5 md:col-span-2">
+              <label class="text-[10px] font-bold text-gray-400 tracking-widest uppercase">描述</label>
+              <textarea rows="3" class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-brand/20" data-k="desc">${escapeHtml(item.desc || '')}</textarea>
+            </div>
+            <div class="space-y-1.5 md:col-span-2">
+              <label class="text-[10px] font-bold text-gray-400 tracking-widest uppercase">图片路径</label>
+              <input class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-brand/20" data-k="image" value="${escapeHtml(item.image || '')}" placeholder="uploads/product_1.jpg">
+            </div>
+          </div>
+        `;
+
+        card.querySelectorAll('input[data-k], textarea[data-k]').forEach((el) => {
+          el.addEventListener('input', () => {
+            const key = el.getAttribute('data-k');
+            item[key] = el.value;
+            renderPreview();
+          });
+        });
+        card.querySelector('[data-act="remove"]').addEventListener('click', () => {
+          state.menu.items = state.menu.items.filter(i => i.id !== item.id);
+          renderItemsEditor();
+          renderPreview();
+        });
+
+        root.appendChild(card);
+      });
+    }
+
+    function renderPreview() {
+      // 保存预览前先更新 editor（菜单数量变化时）
+      const root = $('previewRoot');
+      const heroTitle = escapeHtml(state.hero.title || '');
+      const heroSubtitle = escapeHtml(state.hero.subtitle || '').replace(/\n/g, '<br>');
+      const heroImage = escapeHtml(state.hero.image || '');
+
+      const menuTitle = escapeHtml(state.menu.title || '');
+      const menuIntro = escapeHtml(state.menu.intro || '');
+
+      const menuItemsHtml = state.menu.items.map(item => `
+        <div class="group">
+          <div class="relative aspect-square overflow-hidden bg-gray-100 rounded-2xl mb-6 img-hover shadow-sm">
+            <img src="${escapeHtml(item.image || '')}" alt="${escapeHtml(item.name || '')}" class="w-full h-full" style="object-fit: cover; object-position: center;">
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-baseline border-b border-gray-100 pb-2 mb-3">
+              <span class="text-xs font-bold text-gray-400 tracking-widest uppercase">${escapeHtml(item.category || '')}</span>
+              <span class="font-display text-xl font-medium text-gray-900">${escapeHtml(item.price || '')}</span>
+            </div>
+            <h3 class="font-display text-2xl font-medium text-gray-900 group-hover:text-brand transition">${escapeHtml(item.name || '')}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">${escapeHtml(item.desc || '')}</p>
+          </div>
+        </div>
+      `).join('');
+
+      const snsLink = state.contact.snsUrl ? `<a href="${escapeHtml(state.contact.snsUrl)}" target="_blank" class="text-gray-300 hover:text-white transition">${escapeHtml(state.contact.snsText || '')}</a>` : `<span class="text-gray-300">${escapeHtml(state.contact.snsText || '')}</span>`;
+
+      root.innerHTML = `
+        <div class="rounded-[2rem] overflow-hidden border border-gray-200 bg-white shadow-sm">
+          <div class="p-6 md:p-10 grid md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-5 space-y-6">
+              <h2 class="font-display text-4xl md:text-5xl font-medium leading-[1.1] tracking-tight text-gray-900">${heroTitle}</h2>
+              <p class="text-gray-500 leading-relaxed font-light max-w-md border-l-2 border-brand/30 pl-6">${heroSubtitle}</p>
+            </div>
+            <div class="md:col-span-7">
+              <div class="relative aspect-[4/5] md:aspect-[3/4] rounded-[2rem] overflow-hidden shadow-xl img-hover bg-gray-100">
+                <img src="${heroImage}" alt="Hero" class="w-full h-full object-cover">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="flex flex-col md:flex-row justify-between items-end gap-4">
+            <div>
+              <span class="text-brand font-bold tracking-widest text-sm uppercase mb-3 block">Our Collection</span>
+              <h2 class="font-display text-3xl md:text-4xl font-medium text-gray-900 leading-tight">${menuTitle}</h2>
+            </div>
+            <p class="text-gray-500 text-base max-w-md">${escapeHtml(menuIntro)}</p>
+          </div>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+            ${menuItemsHtml || `<div class="text-gray-500">（暂无菜单条目）</div>`}
+          </div>
+        </div>
+
+        <div class="rounded-[2rem] overflow-hidden bg-gray-900 text-white">
+          <div class="p-8 md:p-10 text-center">
+            <h2 class="font-display text-2xl md:text-3xl font-medium mb-4">いつでもお気軽にお立ち寄りください</h2>
+            <p class="text-gray-400 mb-10">私たちの菓子と経営理念を通じて、皆様にさらなる幸福をお届けできることを願っております。</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 border-t border-gray-800 pt-10">
+              <div>
+                <div class="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-4">📍</div>
+                <h4 class="font-bold tracking-widest text-xs text-gray-500 mb-2 uppercase">場所</h4>
+                <p class="text-gray-300 font-light">${escapeHtml(state.contact.location || '')}</p>
+              </div>
+              <div>
+                <div class="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-4">🕒</div>
+                <h4 class="font-bold tracking-widest text-xs text-gray-500 mb-2 uppercase">営業時間</h4>
+                <p class="text-gray-300 font-light whitespace-pre-line">${escapeHtml(state.contact.hours || '')}</p>
+              </div>
+              <div>
+                <div class="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-4">☎️</div>
+                <h4 class="font-bold tracking-widest text-xs text-gray-500 mb-2 uppercase">電話</h4>
+                <p class="text-gray-300 font-light">${escapeHtml(state.contact.phone || '')}</p>
+              </div>
+              <div>
+                <div class="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center mx-auto mb-4">📱</div>
+                <h4 class="font-bold tracking-widest text-xs text-gray-500 mb-2 uppercase">SNS</h4>
+                <div class="flex flex-col gap-2">${snsLink}</div>
+              </div>
+            </div>
+            <div class="mt-12 flex justify-center items-center gap-3 pt-6 border-t border-gray-800 text-sm text-gray-500">
+              <span class="font-display font-bold text-white tracking-widest">Tu&Ran</span>
+              <span>| ${escapeHtml(state.contact.footerLegal || '')}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function escapeHtml(text) {
+      if (text === null || text === undefined) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function downloadText(filename, text) {
+      const blob = new Blob([text], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    $('btnAddItem').addEventListener('click', () => {
+      state.menu.items.unshift({
+        id: crypto.randomUUID(),
+        category: '蛋糕',
+        price: '0円',
+        name: '新商品',
+        desc: '',
+        image: 'uploads/product_1.jpg'
+      });
+      renderItemsEditor();
+      renderPreview();
+    });
+
+    $('btnReset').addEventListener('click', () => {
+      if (!confirm('确定恢复默认内容？（将覆盖本地保存）')) return;
+      state = structuredClone(defaultState);
+      hydrateForm();
+      renderItemsEditor();
+      renderPreview();
+      saveState(state);
+      alert('已恢复默认。');
+    });
+
+    $('btnSave').addEventListener('click', () => {
+      saveState(state);
+      alert('已保存到本地浏览器。');
+    });
+
+    $('btnExportJson').addEventListener('click', () => {
+      const json = JSON.stringify(state, null, 2);
+      $('jsonPreview').textContent = json;
+      $('jsonPreview').classList.remove('hidden');
+      downloadText('turan-content.json', json);
+    });
+
+    $('btnCopyJson').addEventListener('click', async () => {
+      const json = JSON.stringify(state, null, 2);
+      try {
+        await navigator.clipboard.writeText(json);
+        alert('已复制 JSON。');
+      } catch (e) {
+        $('jsonPreview').textContent = json;
+        $('jsonPreview').classList.remove('hidden');
+        alert('复制失败，已在页面下方显示 JSON，可手动复制。');
+      }
+    });
+
+    function buildSiteJsonFromState() {
+      const items = (state.menu.items || []).map((it, idx) => ({
+        id: it.id || `product-${idx + 1}`,
+        category: it.category || '',
+        price: it.price || '',
+        name: it.name || '',
+        desc: it.desc || '',
+        image: it.image || '',
+        objectPosition: it.objectPosition || 'center'
+      }));
+
+      return {
+        version: 1,
+        brand: { name: 'Tu&Ran', tagline: '日常の幸せベイキング' },
+        nav: { aboutHref: 'about.html', aboutLabel: '店長からのメッセージ' },
+        hero: {
+          title: state.hero.title || '',
+          subtitle: state.hero.subtitle || '',
+          image: state.hero.image || '',
+          badge: 'Osaka • Basque Cheesecake'
+        },
+        collection: {
+          kicker: 'Our Collection',
+          title: state.menu.title || '',
+          intro: state.menu.intro || '',
+          items
+        },
+        contact: {
+          title: 'いつでもお気軽にお立ち寄りください',
+          subtitle: '私たちの菓子と経営理念を通じて、皆様にさらなる幸福をお届けできることを願っております。',
+          cards: [
+            { icon: '📍', label: '場所', value: state.contact.location || '' },
+            { icon: '🕒', label: '営業時間', value: state.contact.hours || '' },
+            { icon: '☎️', label: '電話', value: state.contact.phone || '' },
+            {
+              icon: '📱',
+              label: 'SNS',
+              links: (state.contact.snsText && state.contact.snsUrl)
+                ? [{ label: state.contact.snsText, href: state.contact.snsUrl }]
+                : []
+            }
+          ],
+          footerLegal: state.contact.footerLegal || ''
+        }
+      };
+    }
+
+    function setPublishStatus(text) {
+      if (publishInputs.status) publishInputs.status.textContent = text || '';
+    }
+
+    function setPublishBusy(busy) {
+      if (!publishInputs.btn) return;
+      publishInputs.btn.disabled = !!busy;
+      publishInputs.btn.style.opacity = busy ? '0.6' : '1';
+      publishInputs.btn.style.cursor = busy ? 'not-allowed' : 'pointer';
+    }
+
+    async function githubGetContent(owner, repo, path, branch, token) {
+      const url = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${path}?ref=${encodeURIComponent(branch)}`;
+      const resp = await fetch(url, {
+        headers: {
+          'Accept': 'application/vnd.github+json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const json = await resp.json().catch(() => ({}));
+      return { ok: resp.ok, status: resp.status, json };
+    }
+
+    async function githubPutContent(owner, repo, path, branch, token, message, contentBase64, sha) {
+      const url = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${path}`;
+      const resp = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          message,
+          content: contentBase64,
+          branch,
+          sha
+        })
+      });
+      const json = await resp.json().catch(() => ({}));
+      return { ok: resp.ok, status: resp.status, json };
+    }
+
+    async function triggerVercelHook(hookUrl) {
+      const resp = await fetch(hookUrl, { method: 'POST' });
+      const text = await resp.text();
+      let json = null;
+      try { json = JSON.parse(text); } catch (_) {}
+      return { ok: resp.ok, status: resp.status, text, json };
+    }
+
+    function b64EncodeUnicode(str) {
+      // UTF-8 safe base64 for JSON
+      const bytes = new TextEncoder().encode(str);
+      let binary = '';
+      bytes.forEach(b => binary += String.fromCharCode(b));
+      return btoa(binary);
+    }
+
+    $('btnPublish').addEventListener('click', async () => {
+      const owner = (publishInputs.owner?.value || '').trim();
+      const repo = (publishInputs.repo?.value || '').trim();
+      const branch = (publishInputs.branch?.value || 'main').trim();
+      const token = (publishInputs.token?.value || '').trim();
+      const hook = (publishInputs.hook?.value || '').trim();
+
+      if (!owner || !repo || !branch || !token) {
+        alert('请先填写 GitHub Owner/Repo/Branch/Token。');
+        return;
+      }
+      if (!hook) {
+        const ok = confirm('未填写 Vercel Deploy Hook，将只更新 GitHub，不触发部署。继续吗？');
+        if (!ok) return;
+      }
+
+      // persist publish config locally (token stored locally)
+      localStorage.setItem(PUBLISH_KEY, JSON.stringify({ owner, repo, branch, token, hook }));
+
+      setPublishBusy(true);
+      setPublishStatus('准备发布...');
+      try {
+        const siteJson = buildSiteJsonFromState();
+        const jsonText = JSON.stringify(siteJson, null, 2) + '\n';
+        const contentB64 = b64EncodeUnicode(jsonText);
+        const targetPath = 'content/site.json';
+
+        setPublishStatus('读取远端文件 sha...');
+        const current = await githubGetContent(owner, repo, targetPath, branch, token);
+        if (!current.ok) {
+          const msg = current.json?.message || '无法读取 content/site.json';
+          throw new Error(`GitHub 读取失败 (HTTP ${current.status}): ${msg}`);
+        }
+        const sha = current.json?.sha;
+        if (!sha) throw new Error('GitHub 返回缺少 sha（无法更新文件）');
+
+        setPublishStatus('提交更新到 GitHub...');
+        const put = await githubPutContent(
+          owner, repo, targetPath, branch, token,
+          `chore: update site content (${new Date().toISOString().slice(0,10)})`,
+          contentB64,
+          sha
+        );
+        if (!put.ok) {
+          const msg = put.json?.message || '无法提交更新';
+          throw new Error(`GitHub 提交失败 (HTTP ${put.status}): ${msg}`);
+        }
+
+        setPublishStatus('GitHub 已更新 ✅');
+
+        if (hook) {
+          setPublishStatus('触发 Vercel 部署...');
+          const dep = await triggerVercelHook(hook);
+          if (!dep.ok) {
+            throw new Error(`Vercel Hook 失败 (HTTP ${dep.status}): ${dep.text.slice(0, 200)}`);
+          }
+          const jobId = dep.json?.job?.id || '';
+          const state = dep.json?.job?.state || 'UNKNOWN';
+          setPublishStatus(`部署已触发 ✅  (${state}${jobId ? ` / ${jobId}` : ''})`);
+          alert(`发布完成！\n\n- GitHub: content/site.json 已更新\n- Vercel: 已触发部署 (${state})\n\n一般 1-2 分钟内生效。`);
+        } else {
+          alert('发布完成！\n\n- GitHub: content/site.json 已更新\n- Vercel: 未触发部署（未配置 Hook）');
+        }
+      } catch (e) {
+        console.error(e);
+        setPublishStatus('发布失败：' + e.message);
+        alert('发布失败：' + e.message);
+      } finally {
+        setPublishBusy(false);
+      }
+    });
+
+    // init
+    hydrateForm();
+    bindForm();
+    renderItemsEditor();
+    renderPreview();
+  </script>
+</body>
+</html>
+
