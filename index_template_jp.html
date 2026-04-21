@@ -231,13 +231,25 @@
         const value = escapeHtml(c.value);
         const links = Array.isArray(c.links) ? c.links : [];
         const linksHtml = links.map(l => `<a href="${escapeHtml(l.href)}" target="_blank" class="text-gray-300 hover:text-white transition">${escapeHtml(l.label)}</a>`).join('');
+        const qr = String(c.qrImage || '').trim();
+        const qrSrc = escapeHtml(withLeadingSlash(qr));
+        const qrFile = qr.split('/').pop() || '';
+        const qrFb = qrFile ? `https://turan.cafe/uploads/${qrFile}` : '';
         return `
         <div class="text-center">
           <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">${icon}</div>
           <div class="text-[11px] tracking-[0.18em] uppercase text-gray-500 mb-2">${label}</div>
           ${links.length ? `<div class="flex flex-col gap-2 text-sm">${linksHtml}</div>` : `<div class="text-sm text-gray-300 leading-7 whitespace-pre-line">${value}</div>`}
+          ${qr ? `
+            <div style="margin-top:10px; display:flex; justify-content:center;">
+              <img src="${qrSrc}" alt="QR"
+                   style="width:128px;height:128px;object-fit:contain;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);padding:10px"
+                   ${qrFb ? `data-fallback="${escapeHtml(qrFb)}"` : ''}>
+            </div>
+          ` : ``}
         </div>`;
       }).join('');
+      root.querySelectorAll('img[data-fallback]').forEach(bindFallback);
     }
 
     async function boot() {
