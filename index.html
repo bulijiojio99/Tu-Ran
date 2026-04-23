@@ -73,6 +73,7 @@
       <div class="hidden md:flex items-center gap-10 text-xs tracking-[0.22em] uppercase text-gray-500">
         <a href="#collection" class="hover:text-brand transition">Collection</a>
         <a href="#contact" class="hover:text-brand transition">Contact</a>
+        <div id="navExtras" class="hidden md:flex items-center gap-10"></div>
         <a id="aboutLink" href="/about" class="hover:text-brand transition">Message</a>
       </div>
     </div>
@@ -270,6 +271,25 @@
         document.getElementById('brandName').textContent = d.brand?.name || 'Tu&Ran';
         document.getElementById('footerBrand').textContent = d.brand?.name || 'Tu&Ran';
         document.getElementById('heroTagline').textContent = d.brand?.tagline || '';
+        const extrasRoot = document.getElementById('navExtras');
+        if (extrasRoot) {
+          extrasRoot.innerHTML = '';
+          const extras = Array.isArray(d.nav?.items) ? d.nav.items : [];
+          extras.forEach((it) => {
+            const label = String(it.label || '').trim();
+            const href = String(it.href || '').trim();
+            if (!label || !href) return;
+            const a = document.createElement('a');
+            a.href = href;
+            a.textContent = label;
+            a.className = 'hover:text-brand transition';
+            if (it.openInNewTab) {
+              a.target = '_blank';
+              a.rel = 'noopener noreferrer';
+            }
+            extrasRoot.appendChild(a);
+          });
+        }
         if (d.nav?.aboutHref) document.getElementById('aboutLink').href = d.nav.aboutHref;
         if (d.nav?.aboutLabel) document.getElementById('aboutLink').textContent = d.nav.aboutLabel;
 
