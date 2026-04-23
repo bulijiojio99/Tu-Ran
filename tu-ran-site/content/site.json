@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "brand": {
+    "name": "Tu&Ran",
+    "tagline": "日常の幸せベイキング"
+  },
+  "nav": {
+    "aboutHref": "about.html",
+    "aboutLabel": "店長からのメッセージ",
+    "items": [
+      {
+        "label": "卸販売",
+        "href": "/pages/tab-0rz60q.html",
+        "openInNewTab": false
+      }
+    ]
+  },
+  "hero": {
+    "title": "幸せを焼くために",
+    "subtitle": "一口の甘さから、広がる未来へ。\n心温まるお菓子と、夢を追う若者を応援する場所。",
+    "image": "uploads/hero.jpg",
+    "badge": "Osaka "
+  },
+  "collection": {
+    "kicker": "Our Collection",
+    "title": "定番メニュー",
+    "intro": "日本の実りを、心ゆくまで。北海道産の豊かな乳製品や宇治抹茶、瀬戸内海レモンなど、選び抜いた和の素材で一つひとつ丁寧に焼き上げています。",
+    "items": [
+      {
+        "id": "mo8o3sn30vbo4dzzhpoj",
+        "category": "レモン、抹茶、パッションフルーツ",
+        "price": "600",
+        "name": "バスクチーズケーキ",
+        "desc": "",
+        "image": "uploads/product_1_83a1a8ac.jpg",
+        "objectPosition": "center"
+      },
+      {
+        "id": "mo8o27ex6rqf2326khu",
+        "category": "抹茶、レモン、チョコ、アーモンド",
+        "price": "300",
+        "name": "フィナンシェ",
+        "desc": "",
+        "image": "uploads/product_2_662cd165.jpg",
+        "objectPosition": "center"
+      }
+    ]
+  },
+  "contact": {
+    "title": "いつでもお気軽にお立ち寄りください",
+    "subtitle": "私たちの菓子と経営理念を通じて、皆様にさらなる幸福をお届けできることを願っております。",
+    "cards": [
+      {
+        "icon": "📍",
+        "label": "場所",
+        "value": "大阪市北区本庄西二丁目8ー19、明豊ビル102"
+      },
+      {
+        "icon": "🕒",
+        "label": "営業時間",
+        "value": "13:00-20:00"
+      },
+      {
+        "icon": "☎️",
+        "label": "電話",
+        "value": "070-9176-9186"
+      },
+      {
+        "icon": "📱",
+        "label": "SNS",
+        "links": [
+          {
+            "label": "Instagram",
+            "href": "https://www.instagram.com/turan.osaka?igsh=Zjd5bTZ4aWQ4OHJu&utm_source=qr"
+          }
+        ],
+        "qrImage": "uploads/ins_qr_3dd61738.png"
+      }
+    ],
+    "footerLegal": "Tu&Ran | 最終的な解釈権は、Tu&Ran合同会社に帰属します"
+  }
+}
