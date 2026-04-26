@@ -30,6 +30,9 @@
   </script>
   <style>
     body { font-family: 'Kiwi Maru', serif; -webkit-font-smoothing: antialiased; }
+    /* 避免首屏闪现旧占位文案：等待 site.json 绑定完成后再显示 */
+    html.booting body { opacity: 0; }
+    html.booting body { transition: opacity .12s ease; }
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .9s cubic-bezier(0.16, 1, 0.3, 1), transform .9s cubic-bezier(0.16, 1, 0.3, 1); }
     .reveal.active { opacity: 1; transform: translateY(0); }
     .img-hover { overflow: hidden; }
@@ -59,6 +62,10 @@
       .reveal, .img-hover img { transition: none !important; transform: none !important; opacity: 1 !important; }
     }
   </style>
+  <script>
+    // 在首屏渲染前就加上 booting，避免先显示占位内容再被异步替换产生“闪现”
+    document.documentElement.classList.add('booting');
+  </script>
 </head>
 <body class="bg-[#f8f7f4] text-gray-900 selection:bg-brand-light selection:text-brand">
   <div class="fixed inset-0 grain -z-10"></div>
@@ -73,7 +80,7 @@
       <div class="hidden md:flex items-center gap-10 text-xs tracking-[0.22em] uppercase text-gray-500">
         <a href="#collection" class="hover:text-brand transition">Collection</a>
         <a href="#contact" class="hover:text-brand transition">Contact</a>
-        <div id="navExtras" class="hidden md:flex items-center gap-10"></div>
+        <div id="navExtras" class="flex items-center gap-10"></div>
         <a id="aboutLink" href="/about" class="hover:text-brand transition">Message</a>
       </div>
     </div>
@@ -254,6 +261,8 @@
     }
 
     async function boot() {
+      // 最多等待一小会儿，避免网络异常时一直白屏
+      const safety = setTimeout(() => document.documentElement.classList.remove('booting'), 1200);
       const reveals = document.querySelectorAll('.reveal');
       const reveal = () => {
         const h = window.innerHeight;
@@ -313,7 +322,11 @@
         if (d.contact?.footerLegal) document.getElementById('footerLegal').textContent = ' | ' + d.contact.footerLegal;
 
         requestAnimationFrame(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('active')));
+        document.documentElement.classList.remove('booting');
+        clearTimeout(safety);
       } catch (_) {}
+      // 即便失败也要显示页面
+      document.documentElement.classList.remove('booting');
     }
     boot();
   </script>
