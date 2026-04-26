@@ -27,12 +27,21 @@
     "intro": "日本の実りを、心ゆくまで。北海道産の豊かな乳製品や宇治抹茶、瀬戸内海レモンなど、選び抜いた和の素材で一つひとつ丁寧に焼き上げています。",
     "items": [
       {
+        "id": "mofee40zeegdhw9gv8j",
+        "category": "",
+        "price": "400",
+        "name": "クリームブリュレ",
+        "desc": "",
+        "image": "uploads/product_1_1d3d2a17.jpg",
+        "objectPosition": "center"
+      },
+      {
         "id": "mo8o3sn30vbo4dzzhpoj",
         "category": "レモン、抹茶、パッションフルーツ",
         "price": "600",
         "name": "バスクチーズケーキ",
         "desc": "",
-        "image": "uploads/product_1_594d3340.jpg",
+        "image": "uploads/product_2_594d3340.jpg",
         "objectPosition": "center"
       },
       {
@@ -41,7 +50,7 @@
         "price": "300",
         "name": "フィナンシェ",
         "desc": "",
-        "image": "uploads/product_2_b3f08119.jpg",
+        "image": "uploads/product_3_b3f08119.jpg",
         "objectPosition": "center"
       }
     ]
