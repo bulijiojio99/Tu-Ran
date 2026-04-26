@@ -6,12 +6,19 @@
   },
   "nav": {
     "aboutHref": "about.html",
-    "aboutLabel": "店長からのメッセージ"
+    "aboutLabel": "店長からのメッセージ",
+    "items": [
+      {
+        "label": "卸販売",
+        "href": "/pages/tab-0rz60q.html",
+        "openInNewTab": false
+      }
+    ]
   },
   "hero": {
     "title": "幸せを焼くために",
     "subtitle": "一口の甘さから、広がる未来へ。\n心温まるお菓子と、夢を追う若者を応援する場所。",
-    "image": "uploads/hero_f3cab551.jpg",
+    "image": "uploads/hero.jpg",
     "badge": "Osaka "
   },
   "collection": {
@@ -25,7 +32,7 @@
         "price": "600",
         "name": "バスクチーズケーキ",
         "desc": "",
-        "image": "uploads/product_1_83a1a8ac.jpg",
+        "image": "uploads/product_1_594d3340.jpg",
         "objectPosition": "center"
       },
       {
@@ -34,7 +41,7 @@
         "price": "300",
         "name": "フィナンシェ",
         "desc": "",
-        "image": "uploads/product_2_662cd165.jpg",
+        "image": "uploads/product_2_b3f08119.jpg",
         "objectPosition": "center"
       }
     ]
